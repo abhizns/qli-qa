@@ -1,0 +1,89 @@
+{
+    "test_cases": [
+        {
+            "name": "Validate OS version in AWS runner",
+            "command": "cat /etc/os-release",
+            "expected_stdout": "Ubuntu 24.04.2 LTS"
+        },
+        {
+            "name": "Validate Block Device Mappings - Volume_Size in AWS runner",
+            "command": "df -h",
+            "expected_stdout": "/dev/root        484G"
+        },
+        {
+            "name": "Validate instance architecture",
+            "command": "uname -m",
+            "expected_stdout": "aarch64"
+        },
+        {
+            "name": "Validate Block Device Mappings - Volume Type in AWS runner",
+            "command": "aws ec2 describe-volumes",
+            "expected_stdout": "\"VolumeType\": \"gp3\""
+        },
+        {
+            "name": "Validate Block Device Mappings - device_name in AWS runner",
+            "command": "aws ec2 describe-volumes",
+            "expected_stdout": "\"Device\":\"/dev/sda1\""
+        },
+        {
+            "name": "Validate AMI Filter - name in AWS runner",
+            "command": "aws ec2 describe-images --filters \"Name=name,Values=qli*\"",
+            "expected_stdout": ""
+        },
+        {
+            "name": "Validate AMI Filter - architecture in AWS runner",
+            "command": "aws ec2 describe-images --filters \"Name=architecture,Values=x86_64\"",
+            "expected_stdout": ""
+        },
+        {
+            "name": "Validate Git in AWS runner",
+            "command": "git --version",
+            "expected_stdout": "git version 2.43.0"
+        },
+        {
+            "name": "Validate binutils in AWS runner",
+            "command": "ld -v",
+            "expected_stdout": "GNU ld (GNU Binutils for Ubuntu) 2.42"
+        },
+        {
+            "name": "Validate curl in AWS runner",
+            "command": "curl -V",
+            "expected_stdout": "curl 8.5.0 (aarch64-unknown-linux-gnu)"
+        },
+        {
+            "name": "Validate cargo in AWS runner",
+            "command": "cargo -V",
+            "expected_stdout": "cargo 1.75.0"
+        },
+        {
+            "name": "Validate OpenSSL version in AWS runner",
+            "command": "openssl version",
+            "expected_stdout": "OpenSSL 3.0.13"
+        },
+        {
+            "name": "Validate pkg-config version in AWS runner",
+            "command": "pkg-config --version",
+            "expected_stdout": "1.8.1"
+        },
+        {
+            "name": "Validate iptables version in AWS runner",
+            "command": "iptables --version",
+            "expected_stdout": "iptables v1.8.10"
+        },
+        {
+            "name": "Validate jq version in AWS runner",
+            "command": "jq --version",
+            "expected_stdout": "jq-1.7"
+        },
+        {
+            "name": "Validate unzip version in AWS runner",
+            "command": "unzip -v",
+            "expected_stdout": "UnZip 6.00"
+        },
+        {
+            "name": "Validate wget version in AWS runner",
+            "command": "wget --version",
+            "expected_stdout": "GNU Wget 1.21.4"
+        }
+    ]
+}
