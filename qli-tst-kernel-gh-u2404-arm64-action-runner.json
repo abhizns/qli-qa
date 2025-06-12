@@ -23,7 +23,7 @@
         {
             "name": "Validate Block Device Mappings - device_name in AWS runner",
             "command": "aws ec2 describe-volumes",
-            "expected_stdout": "\"Device\":\"/dev/sda1\""
+            "expected_stdout": "\"Device\": \"/dev/sda1\""
         },
         {
             "name": "Validate AMI Filter - name in AWS runner",
