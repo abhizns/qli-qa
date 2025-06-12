@@ -56,6 +56,11 @@
             "expected_stdout": "cargo 1.75.0"
         },
         {
+            "name": "Validate nfs-common in AWS runner",
+            "command": "dpkg -l nfs-kernel-server",
+            "expected_stdout": "nfs-kernel-server"
+        },
+        {
             "name": "Validate OpenSSL version in AWS runner",
             "command": "openssl version",
             "expected_stdout": "OpenSSL 3.0.13"
@@ -84,6 +89,31 @@
             "name": "Validate wget version in AWS runner",
             "command": "wget --version",
             "expected_stdout": "GNU Wget 1.21.4"
+        },
+        {
+            "name": "Validate docker in AWS runner",
+            "command": "docker --version",
+            "expected_stdout": "Docker version 28.2.2"
+        },
+        {
+            "name": "Validate awscli in AWS runner",
+            "command": "aws --version",
+            "expected_stdout": "aws-cli/2.27.29"
+        },
+        {
+            "name": "Validate Create File in S3 Bucket",
+            "command": "aws s3 cp s3://qli-tst-kernel-gh-artifacts/test.txt .",
+            "expected_stdout": "download: s3://qli-tst-kernel-gh-artifacts/test.txt to ./test.txt"
+        },
+        {
+            "name": "Validate Update File in S3 Bucket",
+            "command": "aws s3 cp test.txt s3://qli-tst-kernel-gh-artifacts/test.txt",
+            "expected_stdout": "upload: ./test.txt to s3://qli-tst-kernel-gh-artifacts/test.txt"
+        },
+        {
+            "name": "Validate Delete File from S3 Bucket",
+            "command": "aws s3 rm s3://qli-tst-kernel-gh-artifacts/test.txt",
+            "expected_stdout": "delete: s3://qli-tst-kernel-gh-artifacts/test.txt"
         }
     ]
 }
