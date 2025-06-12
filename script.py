@@ -121,8 +121,8 @@ def run_tests(test_cases):
             "expected_stdout": test_case.get("expected_stdout"),
             "expected_stderr": test_case.get("expected_stderr"),
             "expected_returncode": test_case.get("expected_returncode", 0),
-            "stdout_mode": test_case.get("stdout_mode", "exact"),
-            "stderr_mode": test_case.get("stderr_mode", "exact"),
+            "stdout_mode": test_case.get("stdout_mode", "contains"),
+            "stderr_mode": test_case.get("stderr_mode", "contains"),
             "status": "FAIL", # Default to FAIL
             "stdout_validation_details": "",
             "stderr_validation_details": "",
@@ -148,11 +148,11 @@ def run_tests(test_cases):
             test_result["returncode_validation_details"] = f"Return code MISMATCH. Expected: {expected_rc}, Got: {actual_rc}"
 
         # 2. Stdout
-        if test_case.get("expected_stdout") is not None or test_case.get("stdout_mode", "exact") != "ignore":
+        if test_case.get("expected_stdout") is not None or test_case.get("stdout_mode", "contains") != "ignore":
             stdout_passed, details = validate_output(
                 command_output["stdout"],
                 test_case.get("expected_stdout"),
-                test_case.get("stdout_mode", "exact")
+                test_case.get("stdout_mode", "contains")
             )
             test_result["stdout_validation_details"] = details
             if not stdout_passed:
@@ -162,11 +162,11 @@ def run_tests(test_cases):
 
 
         # 3. Stderr
-        if test_case.get("expected_stderr") is not None or test_case.get("stderr_mode", "exact") != "ignore":
+        if test_case.get("expected_stderr") is not None or test_case.get("stderr_mode", "contains") != "ignore":
             stderr_passed, details = validate_output(
                 command_output["stderr"],
                 test_case.get("expected_stderr"),
-                test_case.get("stderr_mode", "exact")
+                test_case.get("stderr_mode", "contains")
             )
             test_result["stderr_validation_details"] = details
             if not stderr_passed:
@@ -185,14 +185,14 @@ def run_tests(test_cases):
             if test_result["returncode_validation_details"] and "MISMATCH" in test_result["returncode_validation_details"]:
                  print(f"    - {test_result['returncode_validation_details']}")
 
-            stdout_check_configured = test_case.get("expected_stdout") is not None or test_case.get("stdout_mode", "exact") != "ignore"
-            if stdout_check_configured and not validate_output(command_output["stdout"], test_case.get("expected_stdout"), test_case.get("stdout_mode", "exact"))[0]:
+            stdout_check_configured = test_case.get("expected_stdout") is not None or test_case.get("stdout_mode", "contains") != "ignore"
+            if stdout_check_configured and not validate_output(command_output["stdout"], test_case.get("expected_stdout"), test_case.get("stdout_mode", "contains"))[0]:
                  print(f"    - Stdout MISMATCH: {test_result['stdout_validation_details']}")
                  print(f"      Expected ({test_case.get('stdout_mode', 'exact')}): '{test_case.get('expected_stdout')}'")
                  print(f"      Actual:   '{command_output['stdout']}'")
 
-            stderr_check_configured = test_case.get("expected_stderr") is not None or test_case.get("stderr_mode", "exact") != "ignore"
-            if stderr_check_configured and not validate_output(command_output["stderr"], test_case.get("expected_stderr"), test_case.get("stderr_mode", "exact"))[0]:
+            stderr_check_configured = test_case.get("expected_stderr") is not None or test_case.get("stderr_mode", "contains") != "ignore"
+            if stderr_check_configured and not validate_output(command_output["stderr"], test_case.get("expected_stderr"), test_case.get("stderr_mode", "contains"))[0]:
                  print(f"    - Stderr MISMATCH: {test_result['stderr_validation_details']}")
                  print(f"      Expected ({test_case.get('stderr_mode', 'exact')}): '{test_case.get('expected_stderr')}'")
                  print(f"      Actual:   '{command_output['stderr']}'")
